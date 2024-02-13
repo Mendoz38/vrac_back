@@ -1,16 +1,14 @@
 
 module.exports = (_db) => {
   db = _db;
-  return cuveeModel;
+  return boutiqueModel;
 };
 
-class cuveeModel {
+class boutiqueModel {
   
-  //ajout d'un utilisateur ---OK---
+  //Création d'une boutique
   static async addOneBoutique(req) {
-
-    //on sauvegarde la cuvée
-	return db.query('INSERT INTO boutique (entreprise, adresse, adresse, telephone, mail) VALUES(?, ?, ?, ?, ?, ?, ?)', [req.body.domaine, req.body.domaine2, req.body.vigneron,req.body.cuvee, req.body.millesime, req.body.lot, req.body.nomImage])
+	return db.query('INSERT INTO boutiques (nom_boutique, type, adresse, telephone, mail) VALUES(?, ?, ?, ?, ?)', [req.body.epicerie, req.body.type, req.body.adresse, req.body.telephone, req.body.mail])
 	  .then((result) => {
         return { status: 200, msg: "Boutique  enregistrée !" };
       })
@@ -20,6 +18,52 @@ class cuveeModel {
       });
       
   }
+
+	// Toutes les boutiques
+	static async getAllBoutiques() {
+		return db.query('SELECT * FROM boutiques ORDER BY id ASC')
+			.then((result) => {
+				return result
+			})
+			.catch((err) => {
+				return err
+			})
+	}
+
+	// Toutes les boutiques
+	static async getOneBoutique(id) {
+		return db.query('SELECT * FROM boutiques WHERE id = ?', [id])
+			.then((result) => {
+				return result
+			})
+			.catch((err) => {
+				return err
+			})
+	}
+
+	// Coordonnées étikette par id_boutique
+	static async getCoordEtikette(id) {
+		return db.query('SELECT * FROM etikette WHERE id_boutique = ?', [id])
+			.then((result) => {
+				return result
+			})
+			.catch((err) => {
+				return err
+			})
+	}
+
+
+/*
+    console.log("Model Boutique par id", id)
+*/
+
+
+
+
+
+
+
+
 
   
 }
