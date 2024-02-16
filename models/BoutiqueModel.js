@@ -43,8 +43,11 @@ class boutiqueModel {
 
 	// Coordonnées étikette par id_boutique
 	static async getCoordEtikette(id) {
+		//return db.query('SELECT * FROM etikette WHERE id_boutique = ?', [id])
+
 		return db.query('SELECT * FROM etikette WHERE id_boutique = ?', [id])
 			.then((result) => {
+				console.log("zzz", result)
 				return result
 			})
 			.catch((err) => {
